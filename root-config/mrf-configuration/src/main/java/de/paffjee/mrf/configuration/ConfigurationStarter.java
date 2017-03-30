@@ -16,17 +16,18 @@ import javax.inject.Singleton;
 import java.io.Serializable;
 import java.util.Iterator;
 
+
 /**
  * Created by BEYH on 28.03.2017.
  */
 @ApplicationScoped
 @Singleton
 public class ConfigurationStarter implements Serializable{
+    public static final String PREFIX = "domain";
     private static final String GLOABAL_HUB = "com.bmw.global.env.hub";
     private static final String GLOABAL_ENVIRONMENT = "com.bmw.global.env.environment";
     private static final String GLOABAL_APPID = "com.bmw.global.env.appID";
     private static final String CONFIG_FILE_NAME_TEMPLATE = "%s-configuration.properties";
-
     private ImmutableConfiguration configurationInstance;
 
     /**
@@ -44,14 +45,14 @@ public class ConfigurationStarter implements Serializable{
 
             SystemConfiguration systemConfiguration = new SystemConfiguration();
             PropertiesConfiguration bmwConfig = new PropertiesConfiguration();
-            for (Iterator<String> iterator = systemConfiguration.getKeys("com.bmw"); iterator.hasNext();) {
+            for (Iterator<String> iterator = systemConfiguration.getKeys(PREFIX); iterator.hasNext(); ) {
                 String key = iterator.next();
                 bmwConfig.setProperty(key, systemConfiguration.getProperty(key));
             }
             config.copy(bmwConfig);
 
-            config.copy(bmwConfig.subset(
-                    String.format("com.bmw.%s.%s.%s", systemConfiguration.getString(GLOABAL_HUB, "NONE").toLowerCase(),
+            config.copy(bmwConfig.subset(String.format("%s.%s.%s.%s", PREFIX,
+                    systemConfiguration.getString(GLOABAL_HUB, "NONE").toLowerCase(),
                             systemConfiguration.getString(GLOABAL_ENVIRONMENT, "CI").toLowerCase(),
                             systemConfiguration.getString(GLOABAL_APPID, "nothing").toLowerCase())));
 
