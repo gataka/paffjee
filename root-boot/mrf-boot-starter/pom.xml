@@ -6,7 +6,7 @@
         <artifactId>root-boot</artifactId>
         <groupId>de.paffjee.mrf.boot</groupId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath>../root-boot/pom.xml</relativePath>
+        <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 

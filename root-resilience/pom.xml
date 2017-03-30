@@ -13,7 +13,7 @@
     <groupId>de.paffjee.mrf.resilience</groupId>
     <artifactId>root-resilience</artifactId>
     <modules>
-        <module>../circuitebreaker</module>
+        <module>circuitebreaker</module>
     </modules>
 
     <dependencyManagement>
