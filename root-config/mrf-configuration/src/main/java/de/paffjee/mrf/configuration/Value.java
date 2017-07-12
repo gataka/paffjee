@@ -1,5 +1,6 @@
 package de.paffjee.mrf.configuration;
 
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.util.Nonbinding;
 import javax.inject.Qualifier;
 import java.lang.annotation.Documented;
@@ -15,7 +16,9 @@ import java.lang.annotation.Target;
 @Documented
 @Target({ ElementType.FIELD,ElementType.PARAMETER,ElementType.LOCAL_VARIABLE,ElementType.TYPE_PARAMETER,ElementType.METHOD})
 @Qualifier
+@RequestScoped
 public @interface Value {
+    Class<?> type();
 
     @Nonbinding String key() default "";
 

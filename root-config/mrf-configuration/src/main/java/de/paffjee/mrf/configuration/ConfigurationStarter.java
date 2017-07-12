@@ -21,7 +21,6 @@ import java.util.Iterator;
  * Created by BEYH on 28.03.2017.
  */
 @ApplicationScoped
-@Singleton
 public class ConfigurationStarter implements Serializable{
     public static final String PREFIX = "domain";
     private static final String GLOABAL_HUB = "de.paffjee.global.env.hub";
@@ -35,6 +34,7 @@ public class ConfigurationStarter implements Serializable{
      */
     @PostConstruct
     public void init()  {
+        System.out.println("Start bean.");
 
         try {
 
@@ -74,7 +74,7 @@ public class ConfigurationStarter implements Serializable{
     }
 
     @Produces
-    @Value
+    @Value(type = String.class)
     public String produceStringPropertie(InjectionPoint injectionPoint)
     {
         final Annotated annotated = injectionPoint.getAnnotated();
@@ -83,7 +83,7 @@ public class ConfigurationStarter implements Serializable{
     }
 
     @Produces
-    @Value
+    @Value(type = Integer.class)
     public Integer produceIntegerPropertie(InjectionPoint injectionPoint)
     {
         final Annotated annotated = injectionPoint.getAnnotated();
