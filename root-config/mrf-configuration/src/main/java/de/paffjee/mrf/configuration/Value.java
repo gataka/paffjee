@@ -16,7 +16,6 @@ import java.lang.annotation.Target;
 @Target({ ElementType.FIELD,ElementType.PARAMETER,ElementType.LOCAL_VARIABLE,ElementType.TYPE_PARAMETER,ElementType.METHOD})
 @Qualifier
 public @interface Value {
-    Class<?> type();
 
     @Nonbinding String key() default "";
 

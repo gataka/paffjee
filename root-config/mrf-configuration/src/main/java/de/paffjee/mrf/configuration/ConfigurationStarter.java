@@ -24,9 +24,9 @@ import java.util.Iterator;
 @Singleton
 public class ConfigurationStarter implements Serializable{
     public static final String PREFIX = "domain";
-    private static final String GLOABAL_HUB = "com.bmw.global.env.hub";
-    private static final String GLOABAL_ENVIRONMENT = "com.bmw.global.env.environment";
-    private static final String GLOABAL_APPID = "com.bmw.global.env.appID";
+    private static final String GLOABAL_HUB = "de.paffjee.global.env.hub";
+    private static final String GLOABAL_ENVIRONMENT = "de.paffjee.global.env.environment";
+    private static final String GLOABAL_APPID = "de.paffjee.global.env.appID";
     private static final String CONFIG_FILE_NAME_TEMPLATE = "%s-configuration.properties";
     private ImmutableConfiguration configurationInstance;
 
@@ -44,14 +44,14 @@ public class ConfigurationStarter implements Serializable{
             config = configs.properties(String.format(CONFIG_FILE_NAME_TEMPLATE, "default"));
 
             SystemConfiguration systemConfiguration = new SystemConfiguration();
-            PropertiesConfiguration bmwConfig = new PropertiesConfiguration();
+            PropertiesConfiguration applicationConfig = new PropertiesConfiguration();
             for (Iterator<String> iterator = systemConfiguration.getKeys(PREFIX); iterator.hasNext(); ) {
                 String key = iterator.next();
-                bmwConfig.setProperty(key, systemConfiguration.getProperty(key));
+                applicationConfig.setProperty(key, systemConfiguration.getProperty(key));
             }
-            config.copy(bmwConfig);
+            config.copy(applicationConfig);
 
-            config.copy(bmwConfig.subset(String.format("%s.%s.%s.%s", PREFIX,
+            config.copy(applicationConfig.subset(String.format("%s.%s.%s.%s", PREFIX,
                     systemConfiguration.getString(GLOABAL_HUB, "NONE").toLowerCase(),
                             systemConfiguration.getString(GLOABAL_ENVIRONMENT, "CI").toLowerCase(),
                             systemConfiguration.getString(GLOABAL_APPID, "nothing").toLowerCase())));
@@ -74,7 +74,7 @@ public class ConfigurationStarter implements Serializable{
     }
 
     @Produces
-    @Value(type = String.class)
+    @Value
     public String produceStringPropertie(InjectionPoint injectionPoint)
     {
         final Annotated annotated = injectionPoint.getAnnotated();
@@ -83,7 +83,7 @@ public class ConfigurationStarter implements Serializable{
     }
 
     @Produces
-    @Value(type = Integer.class)
+    @Value
     public Integer produceIntegerPropertie(InjectionPoint injectionPoint)
     {
         final Annotated annotated = injectionPoint.getAnnotated();
